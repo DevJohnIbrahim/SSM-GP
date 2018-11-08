@@ -3,9 +3,13 @@ import nltk
 from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 from FileManager import File_Manager
+from autocorrect import spell
+from joblib import Parallel,delayed
+import joblib
 class Pre_Processing:
     def __init__(self, FileName):
         self.FileName = FileName
+
     def ReadFile(self):
         FileManagerObject = File_Manager(self.FileName)
         self.List = FileManagerObject.Read_File()
@@ -14,7 +18,9 @@ class Pre_Processing:
         self.Tokenization()
         self.Stemming()
         self.RemoveEncoding()
+        self.WordCorrection()
         return self.ProcessedList
+
     def Tokenization(self):
         self.ProcessedList = [[]]
         x=0
@@ -26,6 +32,7 @@ class Pre_Processing:
         del self.ProcessedList[1]
         del self.List
         gc.collect()
+
     def Stemming(self):
         Stemmer = PorterStemmer()
         for i in range(len(self.ProcessedList)):
@@ -46,3 +53,9 @@ class Pre_Processing:
                     if ord(letter) > 127:
                         del self.ProcessedList[i][j]
                         break
+    def WordCorrection(self):
+        print("Word Correction")
+        for i in range(len(self.ProcessedList)):
+            print(i)
+            for j in range(len(self.ProcessedList[i])):
+                self.ProcessedList[i][j] = spell(self.ProcessedList[i][j])
