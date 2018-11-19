@@ -2,34 +2,42 @@ import gc
 import nltk
 from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
-from FileManager import File_Manager
-from autocorrect import spell
-from joblib import Parallel,delayed
-import joblib
+from WordCorrection import WordCorrection
 class Pre_Processing:
-    def __init__(self, FileName):
-        self.FileName = FileName
+    def __init__(self, List):
+        self.List = List
 
-    def ReadFile(self):
-        FileManagerObject = File_Manager(self.FileName)
-        self.List = FileManagerObject.Read_File()
-        del FileManagerObject.List
-        gc.collect()
+    def MainFunction(self):
         self.Tokenization()
         self.Stemming()
         self.RemoveEncoding()
+        print("Word Correction Started")
         self.WordCorrection()
-        return self.ProcessedList
+        print("PreProcessing Finish")
+        return self.NewProcessedList
+    def WordCorrection(self):
+        WordCorrection_Object = WordCorrection()
+        self.NewProcessedList = []
+
+        for i in range(len(self.ProcessedList)):
+            Text = ""
+            for j in range(len(self.ProcessedList[i])):
+                Text = Text+self.ProcessedList[i][j]+" "
+            self.NewProcessedList.append(Text)
+        print("Parsing Finished")
+        del self.ProcessedList
+        del self.NewProcessedList[0]
+        del self.NewProcessedList[1]
+        gc.collect()
+        for i in range(len(self.NewProcessedList)):
+            self.NewProcessedList[i] = WordCorrection_Object.Correction(self.NewProcessedList[i])
+            print(self.NewProcessedList[i])
 
     def Tokenization(self):
         self.ProcessedList = [[]]
-        x=0
         for ListItem in self.List:
             if (len(ListItem)>0):
-                self.ProcessedList.append( nltk.word_tokenize(ListItem[0]))
-                x = x+1
-        del self.ProcessedList[0]
-        del self.ProcessedList[1]
+                self.ProcessedList.append(nltk.word_tokenize(ListItem))
         del self.List
         gc.collect()
 
@@ -53,9 +61,3 @@ class Pre_Processing:
                     if ord(letter) > 127:
                         del self.ProcessedList[i][j]
                         break
-    def WordCorrection(self):
-        print("Word Correction")
-        for i in range(len(self.ProcessedList)):
-            print(i)
-            for j in range(len(self.ProcessedList[i])):
-                self.ProcessedList[i][j] = spell(self.ProcessedList[i][j])
