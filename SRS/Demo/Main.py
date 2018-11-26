@@ -58,6 +58,11 @@ for i in range(len(FeatureExtractionList)):
         for x in range(Greatest-len(FeatureExtractionList[i])):
             np.append(FeatureExtractionList[i],[0.0])
 del FeatureExtractionList[0]
+for i in range(len(FeatureExtractionList)):
+    FeatureExtractionList[i] = FeatureExtractionList[i].tolist()
+for i in range(len(FeatureExtractionList)):
+    for j in range(Greatest-len(FeatureExtractionList[i])):
+        FeatureExtractionList[i].append(0.0)
 #Training
 Processing_Object  = Processing(FeatureExtractionList,Severity1List)
 Processing_Object.Processing()
