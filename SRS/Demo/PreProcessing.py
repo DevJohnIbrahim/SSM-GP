@@ -4,6 +4,7 @@ from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 from WordCorrection import WordCorrection
 class Pre_Processing:
+    print("Pre Processing Started")
     def __init__(self, List):
         self.List = List
 
@@ -11,9 +12,8 @@ class Pre_Processing:
         self.Tokenization()
         self.Stemming()
         self.RemoveEncoding()
-        print("Word Correction Started")
         self.WordCorrection()
-        print("PreProcessing Finish")
+        print("PreProcessing Finished")
         return self.NewProcessedList
     def WordCorrection(self):
         WordCorrection_Object = WordCorrection()
@@ -24,14 +24,10 @@ class Pre_Processing:
             for j in range(len(self.ProcessedList[i])):
                 Text = Text+self.ProcessedList[i][j]+" "
             self.NewProcessedList.append(Text)
-        print("Parsing Finished")
         del self.ProcessedList
-        del self.NewProcessedList[0]
-        del self.NewProcessedList[1]
         gc.collect()
-        for i in range(len(self.NewProcessedList)):
-            self.NewProcessedList[i] = WordCorrection_Object.Correction(self.NewProcessedList[i])
-            print(self.NewProcessedList[i])
+        #for i in range(len(self.NewProcessedList)):
+         #   self.NewProcessedList[i] = WordCorrection_Object.Correction(self.NewProcessedList[i])
 
     def Tokenization(self):
         self.ProcessedList = [[]]
