@@ -1,7 +1,8 @@
-Zeyad-Semi-supervised Learning for Cyberbullying Detection in Social Networks
-Zeyad-Improving Cyberbullying Detection with User Context
-Zeyad-A Comparison of Common Users across Instagram and Ask.fm to Better Understand Cyberbullying
-Mostafa-Automatic Detection of Cyberbullying on Social Networks
+Zeyad - Semi-supervised Learning for Cyberbullying Detection in Social Networks
+Zeyad - Improving Cyberbullying Detection with User Context
+Zeyad - A Comparison of Common Users across Instagram and Ask.fm to Better Understand Cyberbullying
+Zeyad - Cyberbullying Detection with a Pronunciation Based Convolutional Neural Network
+Mostafa - Automatic Detection of Cyberbullying on Social Networks
 Nashaat - Cyberbullying Classification using Text Mining
 Nashaat - Cyberbullying detection using web content mining
 Nashaat - Hyperbolic Feature-based Sarcasm Detection in Tweets: A Machine Learning Approach 
