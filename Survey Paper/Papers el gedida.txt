@@ -6,3 +6,4 @@ Nashaat - Cyberbullying Classification using Text Mining
 Nashaat - Cyberbullying detection using web content mining
 Nashaat - Hyperbolic Feature-based Sarcasm Detection in Tweets: A Machine Learning Approach 
 Nashaat - A Pattern-Based Approach for Sarcasm Detection on Twitter
+Nashaat - Sentiment Analysis for Sarcasm Detection on Streaming Short Text Data
