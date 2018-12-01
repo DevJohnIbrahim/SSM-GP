@@ -14,5 +14,6 @@ John - Cyberbullying Detection A Step Toward a Safer Internet Yard
 John - Machine learning and semantic analysis of in-game chat for cyberbullying
 Mostafa - Towards the Detection of Cyberbullying Based on Social Network Mining Techniques
 Mostafa-Detection and Prevention measures for Cyberbullying and Online Grooming
+Mostafa - Cyberbullying Detection and Prevention: Data Mining and Psychological Perspective
 
 
