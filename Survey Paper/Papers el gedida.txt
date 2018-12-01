@@ -14,7 +14,7 @@ John - Machine learning and semantic analysis of in-game chat for cyberbullying
 John - Cyberbullying Detection and Classification Using Information Retrieval Algorithm
 John - Abusive Language Detection in Online User Content
 Mostafa - Towards the Detection of Cyberbullying Based on Social Network Mining Techniques
-Mostafa-Detection and Prevention measures for Cyberbullying and Online Grooming
+Mostafa - Detection and Prevention measures for Cyberbullying and Online Grooming
 Mostafa - Cyberbullying Detection and Prevention: Data Mining and Psychological Perspective
 Mostafa - Automatic Detection of Cyberbullying on Social Networks
 mostafa - Detecting Offensive Language in Social Media to Protect Adolescent Online Safety
