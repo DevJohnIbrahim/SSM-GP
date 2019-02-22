@@ -1,7 +1,7 @@
 import gc
 import nltk
 from nltk.stem import PorterStemmer
-from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
 from WordCorrection import WordCorrection
 class Pre_Processing:
     def __init__(self, List):
@@ -9,6 +9,9 @@ class Pre_Processing:
 
     def MainFunction(self):
         self.Tokenization()
+        self.RemoveStopWord()
+        self.LoweringText()
+        #self.WordSizeFilter()
         self.Stemming()
         self.RemoveEncoding()
         self.WordCorrection()
@@ -40,13 +43,6 @@ class Pre_Processing:
         for i in range(len(self.ProcessedList)):
             for j in range(len(self.ProcessedList[i])):
                 self.ProcessedList[i][j] = Stemmer.stem(self.ProcessedList[i][j])
-
-    def Lemitization(self):
-        Lem = WordNetLemmatizer()
-        for i in range(len(self.ProcessedList)):
-            for j in range(len(self.ProcessedList[i])):
-                self.ProcessedList[i][j] = Lem.lemmatize(self.ProcessedList[i][j])
-
     def RemoveEncoding(self):
         for i in range(len(self.ProcessedList)):
             for j in range(len(self.ProcessedList[i])):
@@ -55,3 +51,29 @@ class Pre_Processing:
                     if ord(letter) > 127:
                         del self.ProcessedList[i][j]
                         break
+    def RemoveStopWord(self):
+        Stop_Words = set(stopwords.words('english'))
+        for x in range(len(self.ProcessedList)):
+            size = len(self.ProcessedList[x])
+            y = 0
+            while y < size:
+                if self.ProcessedList[x][y] in Stop_Words:
+                    del self.ProcessedList[x][y]
+                    size = size-1
+                else:
+                    y = y+1
+    def LoweringText(self):
+        for x in range(len(self.ProcessedList)):
+            for y in range(len(self.ProcessedList[x])):
+                self.ProcessedList[x][y] = self.ProcessedList[x][y].lower()
+    def WordSizeFilter(self):
+        for x in range(len(self.ProcessedList)):
+            size = len(self.ProcessedList[x])
+            y = 0
+            while y < size:
+
+                if len(self.ProcessedList[x][y]) < 3:
+                    del self.ProcessedList[x][y]
+                    size = size-1
+                else:
+                    y = y+1
