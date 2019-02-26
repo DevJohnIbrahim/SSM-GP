@@ -1,6 +1,0 @@
-title Feature Extraction
-
-Dataset->FeatureExraction:Instance
-FeatureExraction->TFIDF:Instance
-TFIDF->Sentiment:Instance
-Sentiment->Dataset:Instance
