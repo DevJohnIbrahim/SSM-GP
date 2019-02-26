@@ -1,0 +1,13 @@
+title Neural Network Sequence Diagramx
+
+Dataset/User->Preprocessing:Instance
+Preprocessing->Tokenization:Instance
+Tokenization->RemoveStopWords:Instance
+RemoveStopWords->LoweringText:Instance
+LoweringText->WordSizeFilter:Instance
+WordSizeFilter->Stemming:Instance
+Stemming->RemoveEncoding:Instance
+RemoveEncoding->WordCorrection:Instance
+WordCorrection->WordEmbedding:Instance
+WordEmbedding->Preprocessing:Instance
+Preprocessing->NeuralNetwork:Instance
