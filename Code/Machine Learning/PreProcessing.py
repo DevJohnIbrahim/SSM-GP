@@ -9,9 +9,7 @@ class Pre_Processing:
 
     def MainFunction(self):
         self.Tokenization()
-        self.RemoveStopWord()
         self.LoweringText()
-        #self.WordSizeFilter()
         self.Stemming()
         self.RemoveEncoding()
         self.WordCorrection()

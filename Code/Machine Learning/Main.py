@@ -27,38 +27,21 @@ Filter.DatasetBalancing()
 Answers = Filter.Answers
 Severity = Filter.Severity
 #Pre Processing
+# Answers = [""]
+
 PreProcessing = Pre_Processing(Answers)
 Answers = PreProcessing.MainFunction()
 del Answers[0]
 
-
 # #Feature Extraction
 Features = FeatureExtraction(Answers)
 Answers = Features.TFIDF()
-#Answers = Features.tfidf()
-# # CountVec = Features.CountVec()
-
-
-#Calibrating Answers
-# NewAnswers = [[]]
-# for item in Answers:
-#     x=item[0].tolist()
-#     NewAnswers.append(item[0])
-# del NewAnswers[0]
-#
-# Greatest=500
-# for i in range(len(NewAnswers)):
-#     NewAnswers[i] = NewAnswers[i].tolist()
-# for i in range(len(NewAnswers)):
-#     for j in range(Greatest-len(NewAnswers[i])):
-#         NewAnswers[i].append(0.0)
+print(Answers.shape)
 Data = pd.DataFrame(Answers)
 Data = Data.fillna(0)
-# pd.concat([Data , Data2] , axis=1)
-SentimentList, SubjList = Features.Sentiment()
-Data[2954] = SentimentList
-Data[2955] = SubjList
-print(Data.shape)
-Processing_Object  = Processing(Data,Severity)
+SentimentList = Features.Sentiment()
+Data[44247] = SentimentList
+print("Finish")
+Processing_Object  = Processing(Data , Severity)
 Processing_Object.Processing()
 
