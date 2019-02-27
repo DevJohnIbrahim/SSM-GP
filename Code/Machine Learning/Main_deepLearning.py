@@ -2,30 +2,19 @@ from __future__ import absolute_import, division, print_function
 import keras.backend as K
 import numpy as np
 import csv
+
+from sklearn.metrics import recall_score
+from sklearn.metrics import accuracy_score
 from FileManager import File_Manager
 from DatasetFilter import Filters
 from PreProcessing import Pre_Processing
+from FeatureExtraction import FeatureExtraction
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
 from tensorflow import keras
 
 from sklearn.feature_extraction.text import CountVectorizer
-def read_csv_file(filename):
-    Class = []
-    Data = []
-    with open(filename) as csv_file:
-        csv_reader = csv.reader(csv_file)
-        for row in csv_reader:
-            Class.append(row[0])
-            Data.append(row[1])
 
-    return Data,Class
-
-Data,Class = read_csv_file("data.csv")
-del(Data[0])
-del(Class[0])
-Data=np.array(Data)
-Class=np.array(Class)
 
 #Reading Dataset
 FileManager_Object = File_Manager('Dataset.csv')
@@ -49,31 +38,38 @@ Filter.SizeFilter()
 Filter.DatasetBalancing()
 Answers = Filter.Answers
 Severity = Filter.Severity
-Answers=np.concatenate((Answers, Data), axis=0)
-Severity=np.concatenate((Severity, Class), axis=0)
+
 
 #Pre Processing
 PreProcessing = Pre_Processing(Answers)
 Answers = PreProcessing.MainFunction()
 del Answers[0]
-print(Answers)
-print(Severity)
 
-#model = word2vec.Word2Vec(Answers, min_count=1)
+
 vectorizer = CountVectorizer()
-x = vectorizer.fit_transform(Answers).toarray()
+x0 = vectorizer.fit_transform(Answers).toarray()
 
-training_data, testing_data, training_class, testing_class = train_test_split(x, Severity, test_size=0.40, random_state=10)
+Features = FeatureExtraction(Answers)
+x1 = Features.TFIDF()
 
-training_data=keras.preprocessing.sequence.pad_sequences(training_data, maxlen=256, padding='post', truncating='pre')
-testing_data=keras.preprocessing.sequence.pad_sequences(testing_data, maxlen=256, padding='post', truncating='pre')
+x2,x3=Features.Sentiment()
+x2=np.asarray(x2)
+x3=np.asarray(x3)
+x2=x2[:,None]
+x3=x3[:,None]
+
+Ans=np.concatenate((x0,x1,x2,x3),axis=1)
+print(Ans.shape)
+
+training_data, testing_data, training_class, testing_class = train_test_split(Ans, Severity, test_size=0.30, random_state=42)
+
 print(training_data.shape)
 
 model = keras.Sequential()
-model.add(keras.layers.Embedding(10000,64))
-model.add(keras.layers.GlobalAveragePooling1D())
+model.add(keras.layers.Dense(32, input_shape=(5814,)))
 model.add(keras.layers.Dense(16, activation=tf.nn.relu))
 model.add(keras.layers.Dense(1, activation=tf.nn.sigmoid))
+
 
 
 def mean_pred(y_true, y_pred):
@@ -84,11 +80,12 @@ model.compile(optimizer='adam',
               metrics=['accuracy', mean_pred])
 history = model.fit(training_data,
                     training_class,
-                    epochs=20,
+                    epochs=29,
                     batch_size=512,
                     validation_data=(testing_data, testing_class),
                     verbose=1)
-results = model.evaluate(testing_data, testing_class)
-model.metrics
+y_pred = model.predict(testing_data)
 
-print(results)
+
+print("Recall: ",recall_score(testing_class, y_pred.round(), average='macro'))
+print("Accuracy: ",accuracy_score(testing_class, y_pred.round()))
