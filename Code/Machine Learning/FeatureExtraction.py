@@ -26,3 +26,16 @@ class FeatureExtraction:
         # X = Vectorizer.transform(self.list)
         T = X.toarray()
         return T
+
+    def TFIDFSave(self):
+        Vectorizer = TfidfVectorizer(ngram_range=(1, 1), token_pattern='(?u)\\b\\w+\\b', smooth_idf=True)
+        X = Vectorizer.fit_transform(self.list)
+        dump(Vectorizer, "TFIDF.Model")
+        T = X.toarray()
+        return T
+
+    def TFIDFload(self):
+        Vocabulary = load("TFIDF.Model")
+        X = Vocabulary.transform(self.list)
+        T = X.toarray()
+        return T
