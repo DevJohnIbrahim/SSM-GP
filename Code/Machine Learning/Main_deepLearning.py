@@ -48,17 +48,17 @@ del Answers[0]
 
 vectorizer = CountVectorizer()
 x0 = vectorizer.fit_transform(Answers).toarray()
-
+print(len(x0))
 Features = FeatureExtraction(Answers)
-x1 = Features.TFIDF()
-
+x1 = Features.TFIDFSave()
+print(len(x1))
 x2,x3=Features.Sentiment()
 x2=np.asarray(x2)
 x3=np.asarray(x3)
 x2=x2[:,None]
 x3=x3[:,None]
 
-Ans=np.concatenate((x0,x2),axis=1)
+Ans=np.concatenate((x1,x2),axis=1)
 print(Ans.shape)
 
 training_data, testing_data, training_class, testing_class = train_test_split(Ans, Severity, test_size=0.20, random_state=42)
@@ -66,7 +66,7 @@ training_data, testing_data, training_class, testing_class = train_test_split(An
 print(training_data.shape)
 
 model = keras.Sequential()
-model.add(keras.layers.Dense(128, input_shape=(2890,)))
+model.add(keras.layers.Dense(128, input_shape=(2924,)))
 model.add(keras.layers.Dense(64, activation=tf.nn.relu))
 model.add(keras.layers.Dense(1, activation=tf.nn.sigmoid))
 
@@ -80,12 +80,40 @@ model.compile(optimizer='adam',
               metrics=['accuracy', mean_pred])
 history = model.fit(training_data,
                     training_class,
-                    epochs=40,
+                    epochs=15,
                     batch_size=512,
                     validation_data=(testing_data, testing_class),
                     verbose=1)
 y_pred = model.predict(testing_data)
-
-
 print("Recall: ",recall_score(testing_class, y_pred.round(), average='macro'))
 print("Accuracy: ",accuracy_score(testing_class, y_pred.round()))
+
+
+
+
+
+test=["did you throw the trash today"]
+print(test)
+pre = Pre_Processing(test)
+test = pre.MainFunction()
+del test[0]
+Features = FeatureExtraction(test)
+test1 = Features.TFIDFload()
+test2,test3=Features.Sentiment()
+test2=np.asmatrix(test2)
+fin=np.concatenate((test1,test2),axis=1)
+y=model.predict(fin)
+print("Cyberbullying or not? ",y.round())
+
+test=["you are trash"]
+print(test)
+pre = Pre_Processing(test)
+test = pre.MainFunction()
+del test[0]
+Features = FeatureExtraction(test)
+test1 = Features.TFIDFload()
+test2,test3=Features.Sentiment()
+test2=np.asmatrix(test2)
+fin=np.concatenate((test1,test2),axis=1)
+y=model.predict(fin)
+print("Cyberbullying or not? ",y.round())

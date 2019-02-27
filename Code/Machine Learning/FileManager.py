@@ -35,8 +35,8 @@ class File_Manager:
                 self.Ans3List.append(row[11])
                 self.Severity3List.append(row[12])
                 self.Bully3List.append(row[13])
-        # with open("data.csv") as csv_file2:
-        #     csv_reader2 = csv.reader(csv_file2 ,delimiter= ",")
-        #     for row in csv_reader2:
-        #         self.Severity1List.append(row[0])
+        # with open("data.csv") as csv_file:
+        #     csv_reader = csv.reader(csv_file , delimiter = ',')
+        #     for row in csv_reader:
         #         self.AnsList.append(row[1])
+        #         self.Severity1List.append(row[0])
