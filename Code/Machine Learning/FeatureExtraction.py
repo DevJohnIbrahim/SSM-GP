@@ -17,24 +17,14 @@ class FeatureExtraction:
             self.SentimentList.append(polartiy.polarity)
             self.SubjList.append(polartiy.subjectivity)
         return self.SentimentList
-    def TFIDF(self):
-        Vectorizer = TfidfVectorizer(ngram_range=(1, 4), token_pattern='(?u)\\b\\w+\\b', smooth_idf=True)
+
+    def Training_TFIDF(self):
+        Vectorizer = TfidfVectorizer(ngram_range=(1,4) , token_pattern='(?u)\\b\\w+\\b' , smooth_idf=True)
         X = Vectorizer.fit_transform(self.list)
         dump(Vectorizer , "TFIDF.Model")
-        # Vocabulary = load("TFIDF.Model")
-        # Vectorizer = TfidfVectorizer(ngram_range=(1, 4), token_pattern='(?u)\\b\\w+\\b', smooth_idf=True)
-        # X = Vectorizer.transform(self.list)
         T = X.toarray()
         return T
-
-    def TFIDFSave(self):
-        Vectorizer = TfidfVectorizer(ngram_range=(1, 1), token_pattern='(?u)\\b\\w+\\b', smooth_idf=True)
-        X = Vectorizer.fit_transform(self.list)
-        dump(Vectorizer, "TFIDF.Model")
-        T = X.toarray()
-        return T
-
-    def TFIDFload(self):
+    def Test_TFIDF(self):
         Vocabulary = load("TFIDF.Model")
         X = Vocabulary.transform(self.list)
         T = X.toarray()

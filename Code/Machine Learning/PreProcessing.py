@@ -10,7 +10,7 @@ class Pre_Processing:
     def MainFunction(self):
         self.Tokenization()
         self.LoweringText()
-        self.Stemming()
+        # self.Stemming()
         self.RemoveEncoding()
         self.WordCorrection()
         return self.NewProcessedList
