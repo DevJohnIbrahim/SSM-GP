@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:id="@+id/floatingActionButton"
+        android:layout_marginLeft="107dp"
+        android:layout_marginStart="107dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="61dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:id="@+id/floatingActionButton2"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/floatingActionButton"
+        android:layout_alignLeft="@+id/floatingActionButton"
+        android:layout_alignStart="@+id/floatingActionButton" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:id="@+id/floatingActionButton6"
+        android:layout_below="@+id/floatingActionButton2"
+        android:layout_alignLeft="@+id/floatingActionButton2"
+        android:layout_alignStart="@+id/floatingActionButton2"
+        android:layout_marginTop="26dp" />
+
+    <TextView
+        android:text="Facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/floatingActionButton"
+        android:layout_toRightOf="@+id/floatingActionButton"
+        android:layout_toEndOf="@+id/floatingActionButton"
+        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
+        android:id="@+id/textView"
+        android:textColor="@android:color/background_light"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:text="Twitter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_alignTop="@+id/floatingActionButton2"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <TextView
+        android:text="Chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_alignBottom="@+id/floatingActionButton6"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+    <TextView
+        android:text="Add Account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_toStartOf="@+id/textView"
+        android:textSize="@dimen/activity_vertical_margin"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4"
+        android:layout_toLeftOf="@+id/textView" />
+</RelativeLayout>
