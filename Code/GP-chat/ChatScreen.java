@@ -61,9 +61,9 @@ public class ChatScreen extends AppCompatActivity
 
     ChatScreen mm=this;
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
-
     }
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -73,7 +73,6 @@ public class ChatScreen extends AppCompatActivity
         Bundle Message = getIntent().getExtras();
         FriendName = Message.getString("FriendName");
         ChatID = Message.getString("ChatID");
-
 
         friendname = findViewById(R.id.friendname);
         friendname.setText(FriendName);
@@ -90,9 +89,11 @@ public class ChatScreen extends AppCompatActivity
         Drawable listDrawableBackground = listView.getBackground();
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
                 final String selectedItem = (String) parent.getItemAtPosition(position);
                 //instantiate the popup.xml layout file
                 LayoutInflater layoutInflater = (LayoutInflater) ChatScreen.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -103,24 +104,30 @@ public class ChatScreen extends AppCompatActivity
 
                 //instantiate popup window
                 popupWindow = new PopupWindow(customView, AbsListView.LayoutParams.WRAP_CONTENT, AbsListView.LayoutParams.WRAP_CONTENT);
-                if (drawable1.equals(listDrawableBackground)) {
+                if (drawable1.equals(listDrawableBackground))
+                {
                     popupWindow.showAtLocation(listView, Gravity.CENTER, 0, 0);
                 }
                 //display the popup window
 
-                yes.setOnClickListener(new View.OnClickListener() {
+                yes.setOnClickListener(new View.OnClickListener()
+                {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v)
+                    {
                         popupWindow.dismiss();
                     }
                 });
 
 
-                no.setOnClickListener(new View.OnClickListener() {
+                no.setOnClickListener(new View.OnClickListener()
+                {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v)
+                    {
 
-                        if (selectedItem.contains("This is Cyberbullying")) {
+                        if (selectedItem.contains("This is Cyberbullying"))
+                        {
                             String Message = selectedItem.getText().toString();
                             Map<String, Object> dataToSave = new HashMap<String, Object>();
                             dataToSave.put("Non-Cyberbullying", Message);
@@ -137,7 +144,9 @@ public class ChatScreen extends AppCompatActivity
                                 }
                             });
                             //hatotha fe msh non cyberbullying
-                        } else {
+                        }
+                        else
+                        {
                             String Message = selectedItem.getText().toString();
                             Map<String, Object> dataToSave = new HashMap<String, Object>();
                             dataToSave.put("Cyberbullying", Message);
@@ -157,9 +166,11 @@ public class ChatScreen extends AppCompatActivity
                         }
 
                         //close the popup window on button click
-                        yes.setOnClickListener(new View.OnClickListener() {
+                        yes.setOnClickListener(new View.OnClickListener()
+                        {
                             @Override
-                            public void onClick(View v) {
+                            public void onClick(View v)
+                            {
                                 popupWindow.dismiss();
                             }
                         });
@@ -168,11 +179,14 @@ public class ChatScreen extends AppCompatActivity
 
                 });
 
-                buttonSend.setOnClickListener(new View.OnClickListener() {
+                buttonSend.setOnClickListener(new View.OnClickListener()
+                {
                     @Override
-                    public void onClick(View arg0) {
+                    public void onClick(View arg0)
+                    {
                         String message = chatText.getText().toString();
-                        if (!message.isEmpty()) {
+                        if (!message.isEmpty())
+                        {
                             Map<String, Object> ChatMSG = new HashMap<String, Object>();
                             ChatMSG.put("from", Auth.getUid());
                             ChatMSG.put("message", message);
@@ -182,15 +196,19 @@ public class ChatScreen extends AppCompatActivity
                             ChatMSG.put("ChatID", ChatID);
                             chatText.setText("");
                             Database = FirebaseFirestore.getInstance().collection("NeedClassification");
-                            Database.add(ChatMSG).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            Database.add(ChatMSG).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+                            {
                                 @Override
-                                public void onSuccess(DocumentReference documentReference) {
+                                public void onSuccess(DocumentReference documentReference)
+                                {
                                     Log.d(TAG, "Message Sent");
 
                                 }
-                            }).addOnFailureListener(new OnFailureListener() {
+                            }).addOnFailureListener(new OnFailureListener()
+                            {
                                 @Override
-                                public void onFailure(@NonNull Exception e) {
+                                public void onFailure(@NonNull Exception e)
+                                {
                                     Log.w(TAG, "Message was not sent", e);
                                 }
                             });
@@ -208,7 +226,7 @@ public class ChatScreen extends AppCompatActivity
         {
             Auth =FirebaseAuth.getInstance();
             Database = FirebaseFirestore.getInstance().collection("Chat/"+ChatID+"/chating");
-            Database.orderBy("time").addSnapshotListener(new EventListener<QuerySnapshot>()
+            Database.orderBy("time").addSnapshotListener(   new EventListener<QuerySnapshot>()
             {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e)
@@ -226,40 +244,34 @@ public class ChatScreen extends AppCompatActivity
                         }
                     });
 
-                    if(!queryDocumentSnapshots.isEmpty() )
+                    if (!queryDocumentSnapshots.isEmpty())
                     {
 
                         for (final QueryDocumentSnapshot document : queryDocumentSnapshots)
                         {
-                            String senderid= document.getString("from");
-                            String message= document.getString("message");
+                            String senderid = document.getString("from");
+                            String message = document.getString("message");
                             String Class = document.getString("Class");
-                            if (Class.equals("0"))
-                            {
+                            if (Class.equals("0")) {
                                 message = message;
+                            } else {
+                                message = "(This is Cyberbullying)" + " " + message;
                             }
-                            else
-                            {
-                                message = "(This is Cyberbullying)"+" "+message;
-                            }
-                            if(senderid.equals(Auth.getUid()))
-                            {
+                            if (senderid.equals(Auth.getUid())) {
                                 chatArrayAdapter.add(new ChatMessage(false, message));
-                            }
-                            else
-                            {
+                            } else {
                                 chatArrayAdapter.add(new ChatMessage(true, message));
                             }
                         }
                     }
-                    
-                    else if (e !=null)
+
+                    else if (e != null)
                     {
-                        Log.w(TAG,"Got exception",e);
+                        Log.w(TAG, "Got exception", e);
                     }
                 }
-        });
+            });
+        }
     }
-
 
 }
