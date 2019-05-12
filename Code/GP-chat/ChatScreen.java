@@ -39,6 +39,9 @@ import javax.annotation.Nullable;
 import static com.example.ssm.R.drawable.rounded_shape_left;
 
 public class ChatScreen extends AppCompatActivity {
+    
+    DocumentRefrence mDocRef = FirebaseFirestore.getInstance().collection("sampledata").document("messages");
+    
     private static final String TAG = "ChatActivity";
 
     private ChatArrayAdapter chatArrayAdapter;
