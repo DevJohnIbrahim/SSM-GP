@@ -6,6 +6,9 @@ import socket
 import _thread
 import os
 import sys
+import firebase_admin
+from firebase_admin import credentials , firestore
+
 SendingIPS = []
 SendingConnections  = []
 def ListenThread(Connection , Address):

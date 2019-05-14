@@ -43,12 +43,22 @@ class Pre_Processing:
                 self.ProcessedList[i][j] = Stemmer.stem(self.ProcessedList[i][j])
     def RemoveEncoding(self):
         for i in range(len(self.ProcessedList)):
+            no = 0
             for j in range(len(self.ProcessedList[i])):
-                Word = self.ProcessedList[i][j]
-                for letter in Word:
-                    if ord(letter) > 127:
-                        del self.ProcessedList[i][j]
-                        break
+                if j<len(self.ProcessedList[i]):
+                  Word = self.ProcessedList[i][no]
+                  for letter in Word:
+                     st=ord(letter)
+                     if (st > 122):
+                         del self.ProcessedList[i][no]
+                         no=no-1
+                         break
+                     elif (st < 97):
+                         del self.ProcessedList[i][no]
+                         no = no - 1
+                         break
+
+                  no=no+1
     def RemoveStopWord(self):
         Stop_Words = set(stopwords.words('english'))
         for x in range(len(self.ProcessedList)):
