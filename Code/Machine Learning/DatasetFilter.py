@@ -22,6 +22,7 @@ class Filters:
                 BullyingSize = BullyingSize+1
         DeleteSize = NonBullyingSize - BullyingSize
         y=0
+        x=0
         Size = len(self.Severity)
         while x < Size:
             if y < DeleteSize:

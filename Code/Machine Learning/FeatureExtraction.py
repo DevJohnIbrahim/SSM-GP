@@ -19,7 +19,7 @@ class FeatureExtraction:
         return self.SentimentList
 
     def Training_TFIDF(self):
-        Vectorizer = TfidfVectorizer(ngram_range=(1,4) , token_pattern='(?u)\\b\\w+\\b' , smooth_idf=True)
+        Vectorizer = TfidfVectorizer(ngram_range=(1,2) , token_pattern='(?u)\\b\\w+\\b' , smooth_idf=True)
         X = Vectorizer.fit_transform(self.list)
         dump(Vectorizer , "TFIDF.Model")
         T = X.toarray()

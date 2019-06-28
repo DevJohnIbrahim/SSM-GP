@@ -1,0 +1,18 @@
+\contentsline {chapter}{Abstract}{ii}
+\contentsline {chapter}{Acknowledgments}{iii}
+\contentsline {chapter}{List of Tables}{2}
+\contentsline {chapter}{List of Figures}{3}
+\contentsline {chapter}{\numberline {1}Introduction}{4}
+\contentsline {section}{\numberline {1.1}Context aware environments}{4}
+\contentsline {section}{\numberline {1.2}Gesture types}{4}
+\contentsline {chapter}{\numberline {2}Title of my proposed system}{6}
+\contentsline {section}{\numberline {2.1}Related work}{6}
+\contentsline {section}{\numberline {2.2}Motivations }{6}
+\contentsline {section}{\numberline {2.3}Proposed system}{6}
+\contentsline {section}{\numberline {2.4}Details and technical aspects}{7}
+\contentsline {section}{\numberline {2.5}Summary}{7}
+\contentsline {chapter}{\numberline {3}Evaluation of the proposed system}{8}
+\contentsline {section}{\numberline {3.1}Introduction}{8}
+\contentsline {chapter}{\numberline {4}Conclusion}{9}
+\contentsline {section}{\numberline {4.1}Future directions}{9}
+\contentsline {chapter}{Bibliography}{10}

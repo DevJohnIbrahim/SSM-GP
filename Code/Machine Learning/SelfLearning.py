@@ -10,7 +10,7 @@ Messages = []
 NeededClassification = []
 DocumentID = []
 RejectedDocumentID = []
-Docs = UserFeedBack.get()
+Docs = UserFeedBack.stream()
 print("Please Check the Following Messages and then Press Y/N to accept it or decline it to be retrained in the Classifier")
 for Doc in Docs:
     data = Doc.to_dict()
@@ -35,7 +35,7 @@ for i in range(len(NeededClassification)):
         NeededClassification[i] = 1
 NeedClassification = pd.DataFrame(Messages)
 NeedClassification[1] = NeededClassification
-NeedClassification.to_csv("NeedClassification.csv" , mode="a" , header=False)
+NeedClassification.to_csv("NewDataset.csv", mode="a", header=False)
 for i in DocumentID:
     Deleteing = db.collection("UserFeedback").document(i)
     Deleteing.delete()

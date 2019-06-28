@@ -1,7 +1,5 @@
 import time
 import _thread
-import os
-import sys
 import firebase_admin
 from PreProcessing import Pre_Processing
 import pandas as pd
@@ -31,8 +29,6 @@ def Classification(Data , ID ):
         del Answers[0]
         Features = FeatureExtraction(Answers)
         Answers = Features.Test_TFIDF()
-        print(Answers.shape)
-        print("Finished TF-IDF Training")
         Data1 = pd.DataFrame(Answers)
         del Answers
         Data1 = Data1.fillna(0)
@@ -40,32 +36,29 @@ def Classification(Data , ID ):
         Data1[315477] = SentimentList
         Processing_Object  = Processing(Data1)
         Results = Processing_Object.Testing()
+        print(Results[0])
     else:
         Results = []
         Results.append(0)
-    print("Finished Classification")
     Message = Data['message']
     From = Data['from']
     Time = Data['time']
     ChatID  = Data['ChatID']
-    Classified = db.collection(u"Chat").document(ChatID).collection(u"chating").document()
-    Classified.set({
-        u"message":u""+Message,
-        u"from": u""+From,
-        u"time": u""+Time,
-        u"Class": u""+str(Results[0])
+    Classified = db.collection(u"Chat").document(ChatID).collection(u"chating")
+    Classified.add({
+        u"message":Message,
+        u"from": From,
+        u"time": Time,
+        u"Class": str(Results[0])
     })
-    db.collection("NeedClassification").document(ID).delete()
-    print(Classified)
-    print(Results)
-cred = credentials.Certificate("ssmproject-61dec-firebase-adminsdk-op5bp-d525c0a76e.json")
+cred = credentials.Certificate("AdminSDK.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
 NeedClassification = db.collection("NeedClassification")
 while 1:
-    docs = NeedClassification.get()
+    docs = NeedClassification.stream()
     print("Iteration")
     if docs != None:
         for doc in docs:
